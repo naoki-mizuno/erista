@@ -1,8 +1,8 @@
 moveit_setup_assistant_config:
   URDF:
-    package: doppel_moveit_config
-    relative_path: urdf/doppel.urdf
-    xacro_args: ""
+    package: doppel_description
+    relative_path: urdf/doppel_robot.urdf.xacro
+    xacro_args: "--inorder"
   SRDF:
     relative_path: config/doppel.srdf
   CONFIG:
