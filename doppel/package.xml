@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>doppel</name>
+  <version>0.3.1</version>
+  <description>Metapackage for the 7DOF manipulator doppel</description>
+
+  <maintainer email="mizuno.naoki@rm.is.tohoku.ac.jp">Naoki Mizuno</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://gitlab.com/team-quix/arm/doppel</url>
+
+  <author email="mizuno.naoki@rm.is.tohoku.ac.jp">Naoki Mizuno</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>doppel_base</exec_depend>
+  <exec_depend>doppel_control</exec_depend>
+  <exec_depend>doppel_description</exec_depend>
+  <exec_depend>doppel_gazebo</exec_depend>
+  <exec_depend>doppel_moveit_config</exec_depend>
+
+  <export>
+  </export>
+</package>
