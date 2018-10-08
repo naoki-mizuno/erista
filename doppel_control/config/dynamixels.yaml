@@ -1,0 +1,44 @@
+dynamixel_control_hw:
+  serial_interface: /dev/ttyUSB0
+  loop_frequency: 200
+  cycle_time_error_threshold: 0.3
+  baudrate: 1000000
+  # baudrate: 57600
+  read_timeout: 0.05
+  scan_timeout: 0.05
+  # Configuration of the servos
+  default_command_interface: position
+  servos:
+    joint1:
+      # hardware ID of the actuator
+      id: 1
+      # offset to be added, in radians, to the position of an actuator
+      offset: 3.14159265359
+      # max joint speed, in rad/s
+      # it shoud NOT be used for actuators in velocity mode
+      max_speed: 1.57079632679
+    joint2:
+      id: 2
+      offset: 3.14159265359
+      max_speed: 1.57079632679
+    joint3:
+      id: 3
+      offset: 3.14159265359
+      max_speed: 1.57079632679
+    joint4:
+      id: 4
+      offset: 3.14159265359
+      max_speed: 1.57079632679
+    joint5:
+      id: 5
+      offset: 3.14159265359
+      max_speed: 1.57079632679
+    joint6:
+      id: 6
+      offset: 3.14159265359
+      max_speed: 1.57079632679
+    joint7:
+      id: 7
+      offset: 3.14159265359
+      max_speed: 1.57079632679
+      command_interface: position_torque

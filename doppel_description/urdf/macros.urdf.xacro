@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="doppel" >
+  <xacro:property name="M_PI"  value="3.1415926535897931" />
+  <xacro:property name="TORAD" value="0.0174532925199433" />
+
+  <xacro:macro name="make_box_link"
+               params="name
+                       xyz
+                       mass:=0.001
+                       rpy
+                       size
+                       material
+                       " >
+    <link name="${name}" >
+      <inertial>
+        <mass value="${mass}" />
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <box size="${size}" />
+        </geometry>
+        <material name="${material}" />
+      </visual>
+      <collision>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <box size="${size}" />
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:make_gazebo link_name="${name}" material="${material}" />
+  </xacro:macro>
+
+  <xacro:macro name="make_mesh_link"
+               params="name
+                       xyz
+                       rpy
+                       mesh_name
+                       mesh_scale
+                       material
+                       mass
+                       ixyz
+                       ixx
+                       ixy
+                       ixz
+                       iyy
+                       iyz
+                       izz
+                       no_collision:=false
+                       " >
+    <link name="${name}" >
+      <inertial>
+        <mass value="${mass}" />
+        <origin xyz="${ixyz}" />
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}" />
+      </inertial>
+      <visual>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <mesh filename="package://doppel_description/meshes/${mesh_name}"
+                scale="${mesh_scale}" />
+        </geometry>
+        <material name="${material}" />
+      </visual>
+      <xacro:unless value="${no_collision}" >
+        <collision>
+          <origin xyz="${xyz}" rpy="${rpy}" />
+          <geometry>
+            <!-- TODO: Simpler collision shape -->
+            <mesh filename="package://doppel_description/meshes/${mesh_name}"
+                  scale="${mesh_scale}" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+    </link>
+
+    <xacro:make_gazebo link_name="${name}" material="${material}" />
+  </xacro:macro>
+
+  <xacro:macro name="make_cont_joint"
+               params="name
+                       xyz
+                       rpy
+                       axis
+                       parent_link
+                       child_link
+                       effort
+                       velocity
+                       " >
+    <joint name="${name}" type="continuous" >
+      <parent link="${parent_link}" />
+      <child link="${child_link}" />
+      <origin xyz="${xyz}" rpy="${rpy}" />
+      <axis xyz="${axis}" />
+      <limit effort="${effort}" velocity="${velocity}" />
+
+      <dynamics damping="0.0" friction="0.0"/>
+    </joint>
+
+    <xacro:make_trans joint_name="${name}" control_type="Position" />
+  </xacro:macro>
+
+  <xacro:macro name="make_joint"
+               params="name
+                       xyz
+                       rpy
+                       axis
+                       parent_link
+                       child_link
+                       lower
+                       upper
+                       effort
+                       velocity
+                       control_type:=Position
+                       " >
+    <joint name="${name}" type="revolute" >
+      <parent link="${parent_link}" />
+      <child link="${child_link}" />
+      <origin xyz="${xyz}" rpy="${rpy}" />
+      <axis xyz="${axis}" />
+      <limit effort="${effort}" lower="${lower}" upper="${upper}" velocity="${velocity}" />
+
+      <dynamics damping="1.0" friction="0.0"/>
+    </joint>
+
+    <xacro:make_trans joint_name="${name}" control_type="${control_type}" />
+  </xacro:macro>
+
+  <xacro:macro name="make_gazebo" params="link_name material" >
+    <gazebo reference="${link_name}" >
+      <mu1 value="0" />
+      <mu2 value="0" />
+      <kp  value="1e8" />
+      <kd  value="1.0" />
+      <fdir1 value="1 0 0" />
+      <minDepth>0.005</minDepth>
+      <material>Gazebo/${material}</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="make_trans" params="joint_name control_type" >
+    <transmission name="${joint_name}_trans" >
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint_name}" >
+        <hardwareInterface>hardware_interface/${control_type}JointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${joint_name}_motor" >
+        <hardwareInterface>hardware_interface/${control_type}JointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+</robot>

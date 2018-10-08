@@ -1,0 +1,17 @@
+*
+!urdf/
+!launch/
+!rviz/
+!meshes/
+!meshes/*.txt
+!config/
+!*.dae
+!*.yaml
+!*.xacro
+!*.launch
+!*.rviz
+!package.xml
+!CMakeLists.txt
+!README.md
+!LICENSE.txt
+!.gitignore

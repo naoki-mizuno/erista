@@ -1,0 +1,17 @@
+*
+!urdf/
+!launch/
+!config/
+!*.stl
+!*.yaml
+!*.xacro
+!*.urdf
+!*.srdf
+!*.xml
+!*.launch
+!package.xml
+!CMakeLists.txt
+!README.md
+!LICENSE.txt
+!.gitignore
+!.setup_assistant

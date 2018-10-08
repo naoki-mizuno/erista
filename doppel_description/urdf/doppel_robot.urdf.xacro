@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="doppel" >
+  <xacro:arg name="robot_namespace" default="/" />
+  <xacro:arg name="velodyne_enabled" default="true" />
+  <xacro:arg name="velodyne_gpu" default="false" />
+
+  <xacro:include filename="$(find doppel_description)/urdf/doppel.urdf.xacro" />
+
+  <link name="world" />
+
+  <joint name="world_joint" type="fixed" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="world" />
+    <child link="base_link" />
+  </joint>
+
+  <xacro:doppel
+    robot_namespace="$(arg robot_namespace)"
+    velodyne_enabled="$(arg velodyne_enabled)"
+    velodyne_gpu="$(arg velodyne_gpu)"
+    />
+
+
+</robot>

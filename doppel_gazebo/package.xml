@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>doppel_gazebo</name>
+  <version>0.0.0</version>
+  <description>The doppel_gazebo package</description>
+
+  <maintainer email="mizuno.naoki@rm.is.tohoku.ac.jp">Naoki Mizuno</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/naoki-mizuno/doppel</url>
+
+  <author email="mizuno.naoki@rm.is.tohoku.ac.jp">Naoki Mizuno</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_ros_control</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>velodyne_description</exec_depend>
+  <exec_depend>doppel_bringup</exec_depend>
+  <exec_depend>doppel_description</exec_depend>
+
+  <export>
+  </export>
+</package>

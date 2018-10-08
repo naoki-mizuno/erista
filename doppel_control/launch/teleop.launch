@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_namespace" default="/" />
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="joypad_type" default="$(optenv DOPPEL_JOYPAD_TYPE ps4_wired)" />
+
+  <!-- Note: eval only supported in kinetic and later -->
+  <arg name="doppel_prefix" default="" if="$(eval arg('robot_namespace') == '/')" />
+  <arg name="doppel_prefix" default="$(arg robot_namespace)/" unless="$(eval arg('robot_namespace') == '/')" />
+  <!-- For the follow_joint_trajectory action -->
+  <arg name="action_prefix" default="/$(arg doppel_prefix)" />
+
+  <!-- Note: Must have a trailing slash unless empty (same for doppel_prefix) -->
+  <arg name="quince_prefix" default="quince/" />
+
+  <!-- Command the end-effector with TwistStamped -->
+  <include file="$(find doppel_control)/launch/mofpy.launch" >
+    <arg name="doppel_prefix" value="$(arg doppel_prefix)" />
+    <arg name="quince_prefix" value="$(arg quince_prefix)" />
+    <arg name="joy_dev" value="$(arg joy_dev)" />
+    <arg name="joypad_type" value="$(arg joypad_type)" />
+  </include>
+
+  <group ns="$(arg robot_namespace)" >
+
+    <!-- TwistStamped to JointTrajectory -->
+    <node pkg="twist_jogger" type="twist_jogger_node" name="twist_jogger" output="screen" >
+      <!-- Uses robot_namespace for the TF prefix -->
+      <rosparam file="$(find doppel_control)/config/twist_jogger.yaml" subst_value="true" />
+    </node>
+
+    <!-- MoveIt! -->
+    <include file="$(find doppel_moveit_config)/launch/move_group.launch" >
+      <!-- Used for the follow_joint_trajectory action namespace -->
+      <arg name="action_prefix" value="$(arg action_prefix)" />
+    </include>
+
+  </group>
+</launch>

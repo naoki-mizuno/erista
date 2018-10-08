@@ -1,0 +1,10 @@
+controller:
+  # PID gains when using velocity control
+  gains:
+    joint1: {p: 50, d: 1.0, i: 0.0, i_clamp: 1}
+    joint2: {p: 0.01, d: 0.1, i: 0.0, i_clamp: 1}
+    joint3: {p: 0.01, d: 0.1, i: 0.1, i_clamp: 1}
+    joint4: {p: 0.01, d: 0.0, i: 0.01, i_clamp: 1}
+    joint5: {p: 0.01, d: 0.1, i: 0.0, i_clamp: 1}
+    joint6: {p: 0.01, d: 0.1, i: 0.0, i_clamp: 1}
+    joint7: {p: 0.01, d: 0.1, i: 0.0, i_clamp: 1}
