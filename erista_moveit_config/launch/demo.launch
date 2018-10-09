@@ -1,5 +1,6 @@
 <launch>
   <arg name="robot_namespace" default="/" />
+  <arg name="velodyne_enabled" default="$(optenv ERISTA_VELODYNE_ENABLED true)" />
 
   <!-- By default, we do not start a database (it can be large) -->
   <arg name="db" default="false" />
@@ -22,10 +23,10 @@
   <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
   <include file="$(find erista_moveit_config)/launch/planning_context.launch">
     <arg name="load_robot_description" value="true"/>
+    <arg name="velodyne_enabled" value="$(arg velodyne_enabled)"/>
   </include>
 
   <!-- If needed, broadcast static tf for robot root -->
-  
 
   <!-- We do not have a robot connected, so publish fake joint states -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
@@ -38,6 +39,7 @@
 
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find erista_moveit_config)/launch/move_group.launch">
+    <arg name="action_prefix" value="/$(arg robot_namespace)"/>
     <arg name="allow_trajectory_execution" value="true"/>
     <arg name="fake_execution" value="true"/>
     <arg name="info" value="true"/>
