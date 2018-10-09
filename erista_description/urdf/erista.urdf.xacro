@@ -9,10 +9,10 @@
 
   <xacro:property name="joint3_min" value="${-M_PI / 2}" />
   <xacro:property name="joint3_max" value="2.86" />
-  <xacro:property name="joint4_min" value="-2.33" />
-  <xacro:property name="joint4_max" value="2.86" />
-  <xacro:property name="joint6_min" value="${-M_PI / 2}" />
-  <xacro:property name="joint6_max" value="${M_PI / 2}" />
+  <xacro:property name="joint4_min" value="${-M_PI / 4}" />
+  <xacro:property name="joint4_max" value="${M_PI / 4}" />
+  <xacro:property name="joint5_min" value="${-M_PI / 2}" />
+  <xacro:property name="joint5_max" value="${M_PI / 2}" />
 
   <xacro:macro name="erista"
                params="robot_namespace:=/
@@ -42,7 +42,7 @@
     <!-- Effort obtained from H54-200-S500-R datasheet -->
     <xacro:make_joint name="joint1"
                       xyz="0 0 0.062"
-                      rpy="0 0 ${M_PI}"
+                      rpy="0 0 0"
                       axis="0 0 1"
                       parent_link="base_link"
                       child_link="link1"
@@ -65,6 +65,20 @@
                                            iyy="0.01055121" iyz="0.00071657"
                                                             izz="0.00237852"
     />
+
+    <!-- Velodyne VLP-16 -->
+    <xacro:if value="${velodyne_enabled}" >
+      <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro" />
+      <xacro:VLP-16 parent="link1"
+                    name="velodyne"
+                    topic="velodyne_points"
+                    hz="10"
+                    samples="440"
+                    gpu="${velodyne_gpu}" >
+        <origin xyz="0 -0.13 0.1" rpy="0 0 0" />
+      </xacro:VLP-16>
+    </xacro:if>
+
 
     <xacro:make_joint name="joint2"
                       xyz="0.054 0 ${DYNAMIXEL_W / 2}"
@@ -119,14 +133,14 @@
     />
 
     <xacro:make_joint name="joint4"
-                      xyz="0.450 0 0"
-                      rpy="${M_PI} 0 0"
+                      xyz="0.22140 0 0"
+                      rpy="${-M_PI / 2} 0 0"
                       axis="0 0 1"
                       parent_link="link3"
                       child_link="link4"
                       lower="${joint4_min}"
                       upper="${joint4_max}"
-                      effort="44.7"
+                      effort="10.9"
                       velocity="${M_PI}"
     />
 
@@ -136,35 +150,22 @@
                           rpy="0 0 0"
                           mesh_name="link4.dae"
                           mesh_scale="1 1 1"
-                          material="DeepSkyBlue"
-                          mass="2.18514241"
-                          ixyz="0.15 0 0"
-                          ixx="0.00816433" ixy="-0.01841775" ixz="0.00000252"
-                                           iyy="0.10879096"  iyz="0.0"
-                                                             izz="0.11044867"
+                          material="Pale"
+                          mass="0.03886738"
+                          ixyz="0 0 0"
+                          ixx="0.00002242" ixy="0.0"        ixz="0.0"
+                                           iyy="0.00007053" iyz="0.0"
+                                                            izz="0.00007053"
     />
 
-    <!-- Velodyne VLP-16 -->
-    <xacro:if value="${velodyne_enabled}" >
-      <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro" />
-      <xacro:VLP-16 parent="link4"
-                    name="velodyne"
-                    topic="velodyne_points"
-                    hz="10"
-                    samples="440"
-                    gpu="${velodyne_gpu}" >
-        <origin xyz="0.23 -0.03 0" rpy="${M_PI / 2} 0 0" />
-      </xacro:VLP-16>
-    </xacro:if>
-
     <xacro:make_joint name="joint5"
-                      xyz="0.340 -0.004 0"
-                      rpy="${-M_PI / 2} 0 0"
+                      xyz="0.072 0 0"
+                      rpy="${M_PI / 2} 0 0"
                       axis="0 0 1"
                       parent_link="link4"
                       child_link="link5"
-                      lower="${-M_PI / 2}"
-                      upper="${M_PI / 2}"
+                      lower="${joint5_min}"
+                      upper="${joint5_max}"
                       effort="10.9"
                       velocity="${M_PI}"
     />
@@ -175,32 +176,6 @@
                           rpy="0 0 0"
                           mesh_name="link5.dae"
                           mesh_scale="1 1 1"
-                          material="Pale"
-                          mass="0.03886738"
-                          ixyz="0 0 0"
-                          ixx="0.00002242" ixy="0.0"        ixz="0.0"
-                                           iyy="0.00007053" iyz="0.0"
-                                                            izz="0.00007053"
-    />
-
-    <xacro:make_joint name="joint6"
-                      xyz="0.072 0 0"
-                      rpy="${M_PI / 2} 0 0"
-                      axis="0 0 1"
-                      parent_link="link5"
-                      child_link="link6"
-                      lower="${joint6_min}"
-                      upper="${joint6_max}"
-                      effort="10.9"
-                      velocity="${M_PI}"
-    />
-
-    <!-- Link 6 -->
-    <xacro:make_mesh_link name="link6"
-                          xyz="0 0 0"
-                          rpy="0 0 0"
-                          mesh_name="link6.dae"
-                          mesh_scale="1 1 1"
                           material="Lavender"
                           mass="0.33654122"
                           ixyz="0.05 0 0"
@@ -209,12 +184,12 @@
                                                              izz="0.00083169"
     />
 
-    <xacro:make_joint name="joint7"
+    <xacro:make_joint name="joint6"
                       xyz="0.109 0 0"
                       rpy="0 ${M_PI /2} 0"
                       axis="0 0 1"
-                      parent_link="link6"
-                      child_link="link7"
+                      parent_link="link5"
+                      child_link="link6"
                       lower="${-M_PI}"
                       upper="${M_PI}"
                       effort="10.9"
@@ -222,10 +197,10 @@
     />
 
     <!-- End Effector (hand) -->
-    <xacro:make_mesh_link name="link7"
+    <xacro:make_mesh_link name="link6"
                           xyz="0 0 0"
                           rpy="0 0 0"
-                          mesh_name="link7.dae"
+                          mesh_name="link6.dae"
                           mesh_scale="1 1 1"
                           material="LightOrange"
                           mass="0.81594918"
@@ -236,11 +211,11 @@
     />
 
     <!-- TODO: Grab motion and camera location -->
-    <xacro:make_joint name="grab_dummy"
+    <xacro:make_joint name="grasp"
                       xyz="0.06 0.03 0.05"
                       rpy="0 0 0"
                       axis="0 0 1"
-                      parent_link="link7"
+                      parent_link="link6"
                       child_link="dummy"
                       lower="${-M_PI / 2}"
                       upper="${M_PI / 2}"
@@ -258,7 +233,7 @@
     />
 
     <joint name="to_hand_camera" type="fixed" >
-      <parent link="link7" />
+      <parent link="link6" />
       <child link="hand_camera" />
       <origin xyz="0 0 0.12" rpy="${M_PI / 2} ${-M_PI / 2} 0" />
     </joint>
