@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="robot_namespace" default="/" />
-  <arg name="quince_prefix" default="quince/" />
 
   <arg name="velodyne_enabled" default="true" />
   <arg name="velodyne_gpu" default="false" />
@@ -19,7 +18,6 @@
   <!-- Launch nodes required for teleop -->
   <include file="$(find doppel_control)/launch/teleop.launch" >
     <arg name="robot_namespace" value="$(arg robot_namespace)" />
-    <arg name="quince_prefix" value="$(arg quince_prefix)" />
     <arg name="joy_dev" value="$(arg joy_dev)" />
     <arg name="joypad_type" value="$(arg joypad_type)" />
   </include>
