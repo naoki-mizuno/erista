@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_namespace" default="erista" />
+  <arg name="erista_prefix" default="erista/" />
+
+  <arg name="velodyne_enabled" default="true" />
+  <arg name="velodyne_gpu" default="false" />
+
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="joypad_type" default="$(optenv DOPPEL_JOYPAD_TYPE ps4_wired)" />
+
+  <!-- Spawn Gazebo world and erista model, plus controllers -->
+  <include file="$(find erista_gazebo)/launch/erista_empty_world.launch" >
+    <arg name="robot_namespace" value="$(arg robot_namespace)" />
+    <arg name="velodyne_enabled" default="$(arg velodyne_enabled)" />
+    <arg name="velodyne_gpu" default="$(arg velodyne_gpu)" />
+  </include>
+
+  <!-- Launch nodes required for teleop -->
+  <include file="$(find erista_control)/launch/teleop.launch" >
+    <arg name="robot_namespace" value="$(arg robot_namespace)" />
+    <arg name="erista_prefix" value="$(arg erista_prefix)" />
+    <arg name="joy_dev" value="$(arg joy_dev)" />
+    <arg name="joypad_type" value="$(arg joypad_type)" />
+  </include>
+
+  <!-- robot_state_publisher puts the world frame within the erista namespace -->
+  <node name="world_to_erista_world" pkg="tf2_ros" type="static_transform_publisher"
+    args="0 0 0 0 0 0 world erista/world" />
+
+  <!-- Spawn rviz with the MoveIt! plugin panel -->
+  <node name="rviz" pkg="rviz" type="rviz"
+    args="-d $(find erista_base)/config/ns_erista.rviz" />
+</launch>

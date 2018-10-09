@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>erista</name>
+  <version>0.3.1</version>
+  <description>Metapackage for the 6DOF manipulator erista</description>
+
+  <maintainer email="mizuno.naoki@rm.is.tohoku.ac.jp">Naoki Mizuno</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://gitlab.com/team-quix/arm/erista</url>
+
+  <author email="mizuno.naoki@rm.is.tohoku.ac.jp">Naoki Mizuno</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>erista_base</exec_depend>
+  <exec_depend>erista_control</exec_depend>
+  <exec_depend>erista_description</exec_depend>
+  <exec_depend>erista_gazebo</exec_depend>
+  <exec_depend>erista_moveit_config</exec_depend>
+
+  <export>
+  </export>
+</package>

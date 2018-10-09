@@ -1,0 +1,316 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="erista" >
+  <xacro:include filename="$(find erista_description)/urdf/materials.urdf.xacro" />
+  <!-- <xacro:include filename="$(find erista_description)/urdf/xkcd_colors.urdf.xacro" /> -->
+  <xacro:include filename="$(find erista_description)/urdf/macros.urdf.xacro" />
+
+  <xacro:property name="DYNAMIXEL_D" value="0.054" />
+  <xacro:property name="DYNAMIXEL_W" value="0.126" />
+  <xacro:property name="DYNAMIXEL_H" value="${DYNAMIXEL_D}" />
+
+  <xacro:property name="joint3_min" value="${-M_PI / 2}" />
+  <xacro:property name="joint3_max" value="2.86" />
+  <xacro:property name="joint4_min" value="-2.33" />
+  <xacro:property name="joint4_max" value="2.86" />
+  <xacro:property name="joint6_min" value="${-M_PI / 2}" />
+  <xacro:property name="joint6_max" value="${M_PI / 2}" />
+
+  <xacro:macro name="erista"
+               params="robot_namespace:=/
+                       velodyne_enabled:=true
+                       velodyne_gpu:=false
+                       " >
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" >
+        <robotNamespace>${robot_namespace}</robotNamespace>
+      </plugin>
+    </gazebo>
+
+    <!-- Base Link -->
+    <xacro:make_mesh_link name="base_link"
+                          xyz="0 0 0"
+                          rpy="0 0 0"
+                          mesh_name="base.dae"
+                          mesh_scale="1 1 1"
+                          material="LightLilac"
+                          mass="0.23373680"
+                          ixyz="0 0 0"
+                          ixx="0.00036578" ixy="0.0"        ixz="0.0"
+                                           iyy="0.00027028" iyz="0.0"
+                                                            izz="0.00019041"
+    />
+
+    <!-- Effort obtained from H54-200-S500-R datasheet -->
+    <xacro:make_joint name="joint1"
+                      xyz="0 0 0.062"
+                      rpy="0 0 ${M_PI}"
+                      axis="0 0 1"
+                      parent_link="base_link"
+                      child_link="link1"
+                      lower="${-M_PI}"
+                      upper="${M_PI}"
+                      effort="44.7"
+                      velocity="${M_PI}"
+    />
+
+    <!-- Link 1 -->
+    <xacro:make_mesh_link name="link1"
+                          xyz="0 0 0"
+                          rpy="0 0 0"
+                          mesh_name="link1.dae"
+                          mesh_scale="1 1 1"
+                          material="LightLilac"
+                          mass="2.13134162"
+                          ixyz="0 0 0"
+                          ixx="0.01012037" ixy="0.00034081" ixz="0.00331148"
+                                           iyy="0.01055121" iyz="0.00071657"
+                                                            izz="0.00237852"
+    />
+
+    <xacro:make_joint name="joint2"
+                      xyz="0.054 0 ${DYNAMIXEL_W / 2}"
+                      rpy="${-M_PI / 2} 0 ${M_PI}"
+                      axis="0 0 1"
+                      parent_link="link1"
+                      child_link="link2"
+                      lower="${-M_PI}"
+                      upper="0"
+                      effort="44.7"
+                      velocity="${M_PI}"
+    />
+
+    <!-- Link 2 -->
+    <xacro:make_mesh_link name="link2"
+                          xyz="0 0 0"
+                          rpy="0 0 0"
+                          mesh_name="link2.dae"
+                          mesh_scale="1 1 1"
+                          material="LightishRed"
+                          mass="1.14165583"
+                          ixyz="0.25 0 0"
+                          ixx="0.00457860" ixy="0.00179706" ixz="-0.00002524"
+                                           iyy="0.07792435" iyz="-0.00000169"
+                                                            izz="0.07451121"
+    />
+
+    <xacro:make_joint name="joint3"
+                      xyz="0.435 0 0"
+                      rpy="${M_PI} 0 0"
+                      axis="0 0 1"
+                      parent_link="link2"
+                      child_link="link3"
+                      lower="${joint3_min}"
+                      upper="${joint3_max}"
+                      effort="44.7"
+                      velocity="${M_PI}"
+    />
+
+    <!-- Link 3 -->
+    <xacro:make_mesh_link name="link3"
+                          xyz="0 0 0"
+                          rpy="${M_PI} 0 0"
+                          mesh_name="link3.dae"
+                          mesh_scale="1 1 1"
+                          material="Leaf"
+                          mass="2.79024721"
+                          ixyz="0.25 0 0"
+                          ixx="0.00124106" ixy="0.0"        ixz="0.00196671"
+                                           iyy="0.16340234" iyz="0.0"
+                                                            izz="0.16349435"
+    />
+
+    <xacro:make_joint name="joint4"
+                      xyz="0.450 0 0"
+                      rpy="${M_PI} 0 0"
+                      axis="0 0 1"
+                      parent_link="link3"
+                      child_link="link4"
+                      lower="${joint4_min}"
+                      upper="${joint4_max}"
+                      effort="44.7"
+                      velocity="${M_PI}"
+    />
+
+    <!-- Link 4 -->
+    <xacro:make_mesh_link name="link4"
+                          xyz="0 0 0"
+                          rpy="0 0 0"
+                          mesh_name="link4.dae"
+                          mesh_scale="1 1 1"
+                          material="DeepSkyBlue"
+                          mass="2.18514241"
+                          ixyz="0.15 0 0"
+                          ixx="0.00816433" ixy="-0.01841775" ixz="0.00000252"
+                                           iyy="0.10879096"  iyz="0.0"
+                                                             izz="0.11044867"
+    />
+
+    <!-- Velodyne VLP-16 -->
+    <xacro:if value="${velodyne_enabled}" >
+      <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro" />
+      <xacro:VLP-16 parent="link4"
+                    name="velodyne"
+                    topic="velodyne_points"
+                    hz="10"
+                    samples="440"
+                    gpu="${velodyne_gpu}" >
+        <origin xyz="0.23 -0.03 0" rpy="${M_PI / 2} 0 0" />
+      </xacro:VLP-16>
+    </xacro:if>
+
+    <xacro:make_joint name="joint5"
+                      xyz="0.340 -0.004 0"
+                      rpy="${-M_PI / 2} 0 0"
+                      axis="0 0 1"
+                      parent_link="link4"
+                      child_link="link5"
+                      lower="${-M_PI / 2}"
+                      upper="${M_PI / 2}"
+                      effort="10.9"
+                      velocity="${M_PI}"
+    />
+
+    <!-- Link 5 -->
+    <xacro:make_mesh_link name="link5"
+                          xyz="0 0 0"
+                          rpy="0 0 0"
+                          mesh_name="link5.dae"
+                          mesh_scale="1 1 1"
+                          material="Pale"
+                          mass="0.03886738"
+                          ixyz="0 0 0"
+                          ixx="0.00002242" ixy="0.0"        ixz="0.0"
+                                           iyy="0.00007053" iyz="0.0"
+                                                            izz="0.00007053"
+    />
+
+    <xacro:make_joint name="joint6"
+                      xyz="0.072 0 0"
+                      rpy="${M_PI / 2} 0 0"
+                      axis="0 0 1"
+                      parent_link="link5"
+                      child_link="link6"
+                      lower="${joint6_min}"
+                      upper="${joint6_max}"
+                      effort="10.9"
+                      velocity="${M_PI}"
+    />
+
+    <!-- Link 6 -->
+    <xacro:make_mesh_link name="link6"
+                          xyz="0 0 0"
+                          rpy="0 0 0"
+                          mesh_name="link6.dae"
+                          mesh_scale="1 1 1"
+                          material="Lavender"
+                          mass="0.33654122"
+                          ixyz="0.05 0 0"
+                          ixx="0.00003040"  ixy="0.0"        ixz="0.00012974"
+                                            iyy="0.00085174" iyz="0.0"
+                                                             izz="0.00083169"
+    />
+
+    <xacro:make_joint name="joint7"
+                      xyz="0.109 0 0"
+                      rpy="0 ${M_PI /2} 0"
+                      axis="0 0 1"
+                      parent_link="link6"
+                      child_link="link7"
+                      lower="${-M_PI}"
+                      upper="${M_PI}"
+                      effort="10.9"
+                      velocity="${M_PI}"
+    />
+
+    <!-- End Effector (hand) -->
+    <xacro:make_mesh_link name="link7"
+                          xyz="0 0 0"
+                          rpy="0 0 0"
+                          mesh_name="link7.dae"
+                          mesh_scale="1 1 1"
+                          material="LightOrange"
+                          mass="0.81594918"
+                          ixyz="0 0 0.05"
+                          ixx="0.00521117" ixy="0.0"         ixz="-0.00019767"
+                                           iyy="0.00701550"  iyz="0.00000323"
+                                                             izz="0.00208949"
+    />
+
+    <!-- TODO: Grab motion and camera location -->
+    <xacro:make_joint name="grab_dummy"
+                      xyz="0.06 0.03 0.05"
+                      rpy="0 0 0"
+                      axis="0 0 1"
+                      parent_link="link7"
+                      child_link="dummy"
+                      lower="${-M_PI / 2}"
+                      upper="${M_PI / 2}"
+                      effort="10.9"
+                      velocity="${M_PI}"
+                      control_type="Position"
+    />
+
+    <xacro:make_box_link name="dummy"
+                   xyz="0 0 0"
+                   mass="0.001"
+                   rpy="0 0 0"
+                   size="0.05 0.01 0.01"
+                   material="Black"
+    />
+
+    <joint name="to_hand_camera" type="fixed" >
+      <parent link="link7" />
+      <child link="hand_camera" />
+      <origin xyz="0 0 0.12" rpy="${M_PI / 2} ${-M_PI / 2} 0" />
+    </joint>
+
+    <xacro:make_box_link name="hand_camera"
+                         xyz="0 0 0"
+                         mass="0.001"
+                         rpy="0 0 0"
+                         size="0.01 0.02 0.02"
+                         material="Black"
+    />
+
+    <!-- camera -->
+    <gazebo reference="hand_camera" >
+      <sensor type="camera" name="my_camera" >
+        <update_rate>30.0</update_rate>
+        <camera name="my_camera" >
+          <horizontal_fov>1.3962634</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>800</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise is sampled independently per pixel on each frame.
+                That pixel's noise value is added to each of its color
+                channels, which at that point lie in the range [0,1]. -->
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so" >
+          <alwaysOn>true</alwaysOn>
+          <updateRate>5.0</updateRate>
+          <cameraName>my_camera</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>hand_camera</frameName>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_namespace" default="/" />
+
+  <!-- Note: eval only supported in kinetic and later -->
+  <arg name="tf_prefix" default="" if="$(eval arg('robot_namespace') == '/')" />
+  <arg name="tf_prefix" default="$(arg robot_namespace)" unless="$(eval arg('robot_namespace') == '/')" />
+
+  <arg name="velodyne_enabled" default="$(optenv DOPPEL_VELODYNE_ENABLED true)" />
+  <arg name="velodyne_gpu" default="$(optenv DOPPEL_VELODYNE_GPU false)" />
+
+  <arg name="use_joint_state_controller" default="$(optenv DOPPEL_JOINT_STATE_CONTROLLER false)" />
+  <arg name="control_type" default="position" />
+
+  <include file="$(find erista_description)/launch/description.launch" >
+    <arg name="robot_namespace" value="$(arg robot_namespace)" />
+    <arg name="velodyne_enabled" value="$(arg velodyne_enabled)" />
+    <arg name="velodyne_gpu" value="$(arg velodyne_gpu)" />
+  </include>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+    <param name="publish_frequency" value="50.0" />
+    <param name="tf_prefix" value="$(arg tf_prefix)" />
+  </node>
+
+  <group if="$(arg use_joint_state_controller)" >
+    <rosparam file="$(find erista_control)/config/joint_state_controller.yaml" />
+    <node name="controller_spawner" pkg="controller_manager"
+          type="spawner" respawn="false"
+          output="screen"
+          args="joint1_$(arg control_type)_controller
+                joint2_$(arg control_type)_controller
+                joint3_$(arg control_type)_controller
+                joint4_$(arg control_type)_controller
+                joint5_$(arg control_type)_controller
+                joint6_$(arg control_type)_controller
+                joint7_$(arg control_type)_controller
+                joint_state_controller
+          " />
+  </group>
+  <group unless="$(arg use_joint_state_controller)" >
+    <rosparam file="$(find erista_control)/config/joint_state_controller.yaml" />
+    <rosparam file="$(find erista_control)/config/joint_trajectory_controller.yaml" />
+    <node name="joint_state_controller_spawner" pkg="controller_manager"
+          type="spawner" respawn="false"
+          output="screen"
+          args="hand_controller
+                joint_state_controller
+          " />
+    <node name="controller_spawner" pkg="controller_manager" type="controller_manager"
+          args="spawn controller"
+          respawn="false"
+          output="screen" />
+  </group>
+
+</launch>

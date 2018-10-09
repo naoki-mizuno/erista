@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="erista_prefix" default="" />
+
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <!-- Choose from: ps4_wired, ps4_wireless, elecom_small -->
+  <arg name="joypad_type" default="$(optenv DOPPEL_JOYPAD_TYPE ps4_wired)" />
+
+  <node pkg="mofpy" type="mofpy_node.py" name="mofpy" output="screen" >
+    <rosparam file="$(find erista_control)/config/mofpy/common.yaml" />
+    <!-- Uses arg: erista_prefix -->
+    <rosparam file="$(find erista_control)/config/mofpy/presets/arm.yaml" subst_value="true" />
+    <rosparam file="$(find erista_control)/config/mofpy/joypad/$(arg joypad_type).yaml" />
+  </node>
+
+  <node pkg="joy" type="joy_node" name="joy" >
+    <param name="dev" value="$(arg joy_dev)" />
+    <param name="deadzone" value="0" />
+    <param name="autorepeat_rate" value="100" />
+  </node>
+</launch>

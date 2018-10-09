@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_namespace" default="/" />
+
+  <arg name="velodyne_enabled" default="$(optenv DOPPEL_VELODYNE_ENABLED true)" />
+  <arg name="velodyne_gpu" default="$(optenv DOPPEL_VELODYNE_GPU false)" />
+
+  <!-- Spawn pose -->
+  <arg name="x" default="0" />
+  <arg name="y" default="0" />
+  <arg name="z" default="0" />
+  <arg name="yaw" default="0" />
+
+  <group ns="$(arg robot_namespace)" >
+
+    <include file="$(find erista_description)/launch/description.launch" >
+      <arg name="robot_namespace" value="$(arg robot_namespace)" />
+      <arg name="velodyne_enabled" value="$(arg velodyne_enabled)" />
+      <arg name="velodyne_gpu" value="$(arg velodyne_gpu)" />
+    </include>
+
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+      args="-urdf
+            -model $(arg robot_namespace)
+            -param robot_description
+            -x $(arg x)
+            -y $(arg y)
+            -z $(arg z)
+            -Y $(arg yaw)"
+    />
+
+    <include file="$(find erista_control)/launch/control.launch" >
+      <arg name="robot_namespace" value="$(arg robot_namespace)" />
+      <arg name="velodyne_enabled" value="$(arg velodyne_enabled)" />
+      <arg name="velodyne_gpu" value="$(arg velodyne_gpu)" />
+    </include>
+
+    <group if="$(arg velodyne_enabled)" >
+      <!-- TODO: Spawn pointcloud_to_laserscan -->
+    </group>
+  </group>
+</launch>
