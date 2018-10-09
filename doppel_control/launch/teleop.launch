@@ -10,13 +10,9 @@
   <!-- For the follow_joint_trajectory action -->
   <arg name="action_prefix" default="/$(arg doppel_prefix)" />
 
-  <!-- Note: Must have a trailing slash unless empty (same for doppel_prefix) -->
-  <arg name="quince_prefix" default="quince/" />
-
   <!-- Command the end-effector with TwistStamped -->
   <include file="$(find doppel_control)/launch/mofpy.launch" >
     <arg name="doppel_prefix" value="$(arg doppel_prefix)" />
-    <arg name="quince_prefix" value="$(arg quince_prefix)" />
     <arg name="joy_dev" value="$(arg joy_dev)" />
     <arg name="joypad_type" value="$(arg joypad_type)" />
   </include>
