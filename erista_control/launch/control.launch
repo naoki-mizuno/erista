@@ -34,7 +34,6 @@
                 joint4_$(arg control_type)_controller
                 joint5_$(arg control_type)_controller
                 joint6_$(arg control_type)_controller
-                joint7_$(arg control_type)_controller
                 joint_state_controller
           " />
   </group>

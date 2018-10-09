@@ -37,7 +37,7 @@ dynamixel_control_hw:
       id: 6
       offset: 3.14159265359
       max_speed: 1.57079632679
-    joint7:
+    grasp:
       id: 7
       offset: 3.14159265359
       max_speed: 1.57079632679
