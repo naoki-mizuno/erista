@@ -7,7 +7,7 @@
   <arg name="joypad_type" default="$(optenv DOPPEL_JOYPAD_TYPE ps4_wired)" />
 
   <node pkg="mofpy" type="mofpy_node.py" name="mofpy" output="screen" >
-    <rosparam file="$(find mofpy)/config/common.yaml" />
+    <rosparam file="$(find doppel_control)/config/mofpy/config/common.yaml" />
     <!-- Uses arg: doppel_prefix -->
     <rosparam file="$(find doppel_control)/config/mofpy/presets/arm.yaml" subst_value="true" />
     <rosparam file="$(find doppel_control)/config/mofpy/joypad/$(arg joypad_type).yaml" />
