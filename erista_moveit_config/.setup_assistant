@@ -1,11 +1,11 @@
 moveit_setup_assistant_config:
   URDF:
-    package: doppel_description
-    relative_path: urdf/doppel_robot.urdf.xacro
-    xacro_args: "--inorder"
+    package: erista_description
+    relative_path: urdf/erista_robot.urdf.xacro
+    xacro_args: --inorder
   SRDF:
-    relative_path: config/doppel.srdf
+    relative_path: config/erista.srdf
   CONFIG:
     author_name: Naoki Mizuno
     author_email: mizuno.naoki@rm.is.tohoku.ac.jp
-    generated_timestamp: 1538854115
+    generated_timestamp: 1539114298

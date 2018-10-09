@@ -6,7 +6,7 @@
   <arg name="velodyne_gpu" default="false" />
 
   <arg name="joy_dev" default="/dev/input/js0" />
-  <arg name="joypad_type" default="$(optenv DOPPEL_JOYPAD_TYPE ps4_wired)" />
+  <arg name="joypad_type" default="$(optenv ERISTA_JOYPAD_TYPE ps4_wired)" />
 
   <!-- Spawn Gazebo world and erista model, plus controllers -->
   <include file="$(find erista_gazebo)/launch/erista_empty_world.launch" >

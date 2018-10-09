@@ -2,7 +2,7 @@
   <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
   <arg name="load_robot_description" default="false"/>
 
-  <arg name="velodyne_enabled" default="$(optenv DOPPEL_VELODYNE_ENABLED true)"/>
+  <arg name="velodyne_enabled" default="$(optenv ERISTA_VELODYNE_ENABLED true)"/>
 
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>

@@ -2,8 +2,8 @@
 <launch>
   <arg name="robot_description" default="robot_description" />
   <arg name="robot_namespace" default="/" />
-  <arg name="velodyne_enabled" default="$(optenv DOPPEL_VELODYNE_ENABLED true)" />
-  <arg name="velodyne_gpu" default="$(optenv DOPPEL_VELODYNE_GPU false)" />
+  <arg name="velodyne_enabled" default="$(optenv ERISTA_VELODYNE_ENABLED true)" />
+  <arg name="velodyne_gpu" default="$(optenv ERISTA_VELODYNE_GPU false)" />
 
   <param name="$(arg robot_description)" command="$(find xacro)/xacro --inorder
     '$(find erista_description)/urdf/erista_robot.urdf.xacro'

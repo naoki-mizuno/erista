@@ -6,10 +6,10 @@
   <arg name="tf_prefix" default="" if="$(eval arg('robot_namespace') == '/')" />
   <arg name="tf_prefix" default="$(arg robot_namespace)" unless="$(eval arg('robot_namespace') == '/')" />
 
-  <arg name="velodyne_enabled" default="$(optenv DOPPEL_VELODYNE_ENABLED true)" />
-  <arg name="velodyne_gpu" default="$(optenv DOPPEL_VELODYNE_GPU false)" />
+  <arg name="velodyne_enabled" default="$(optenv ERISTA_VELODYNE_ENABLED true)" />
+  <arg name="velodyne_gpu" default="$(optenv ERISTA_VELODYNE_GPU false)" />
 
-  <arg name="use_joint_state_controller" default="$(optenv DOPPEL_JOINT_STATE_CONTROLLER false)" />
+  <arg name="use_joint_state_controller" default="$(optenv ERISTA_JOINT_STATE_CONTROLLER false)" />
   <arg name="control_type" default="position" />
 
   <include file="$(find erista_description)/launch/description.launch" >
@@ -34,7 +34,6 @@
                 joint4_$(arg control_type)_controller
                 joint5_$(arg control_type)_controller
                 joint6_$(arg control_type)_controller
-                joint7_$(arg control_type)_controller
                 joint_state_controller
           " />
   </group>
