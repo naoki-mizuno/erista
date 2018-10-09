@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="erista" >
   <xacro:include filename="$(find erista_description)/urdf/materials.urdf.xacro" />
-  <!-- <xacro:include filename="$(find erista_description)/urdf/xkcd_colors.urdf.xacro" /> -->
   <xacro:include filename="$(find erista_description)/urdf/macros.urdf.xacro" />
 
   <xacro:property name="DYNAMIXEL_D" value="0.054" />
