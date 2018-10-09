@@ -2,7 +2,7 @@
 <launch>
   <arg name="robot_namespace" default="/" />
   <arg name="joy_dev" default="/dev/input/js0" />
-  <arg name="joypad_type" default="$(optenv DOPPEL_JOYPAD_TYPE ps4_wired)" />
+  <arg name="joypad_type" default="$(optenv ERISTA_JOYPAD_TYPE ps4_wired)" />
 
   <!-- Note: eval only supported in kinetic and later -->
   <arg name="erista_prefix" default="" if="$(eval arg('robot_namespace') == '/')" />
