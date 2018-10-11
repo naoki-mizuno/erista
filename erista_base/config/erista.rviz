@@ -109,16 +109,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        velodyne:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        velodyne_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         world:
           Alpha: 1
           Show Axes: false
@@ -154,10 +144,6 @@ Visualization Manager:
           Value: true
         link7:
           Value: true
-        velodyne:
-          Value: true
-        velodyne_base_link:
-          Value: true
         world:
           Value: true
       Marker Scale: 0.300000012
@@ -179,9 +165,6 @@ Visualization Manager:
                             {}
                           hand_camera:
                             {}
-                    velodyne_base_link:
-                      velodyne:
-                        {}
       Update Interval: 0
       Value: true
     - Class: moveit_rviz_plugin/MotionPlanning
@@ -260,16 +243,6 @@ Visualization Manager:
             Show Trail: false
             Value: true
           link7:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          velodyne:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          velodyne_base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -369,16 +342,6 @@ Visualization Manager:
             Show Trail: false
             Value: true
           link7:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          velodyne:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          velodyne_base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false

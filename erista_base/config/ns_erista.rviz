@@ -110,16 +110,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        velodyne:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        velodyne_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         world:
           Alpha: 1
           Show Axes: false
@@ -155,10 +145,6 @@ Visualization Manager:
           Value: true
         erista/link7:
           Value: true
-        erista/velodyne:
-          Value: true
-        erista/velodyne_base_link:
-          Value: true
         erista/world:
           Value: true
         world:
@@ -183,9 +169,6 @@ Visualization Manager:
                               {}
                             erista/hand_camera:
                               {}
-                      erista/velodyne_base_link:
-                        erista/velodyne:
-                          {}
       Update Interval: 0
       Value: true
     - Class: moveit_rviz_plugin/MotionPlanning
@@ -264,16 +247,6 @@ Visualization Manager:
             Show Trail: false
             Value: true
           link7:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          velodyne:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          velodyne_base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -373,16 +346,6 @@ Visualization Manager:
             Show Trail: false
             Value: true
           link7:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          velodyne:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          velodyne_base_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false

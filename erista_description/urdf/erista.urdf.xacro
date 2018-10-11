@@ -16,8 +16,6 @@
 
   <xacro:macro name="erista"
                params="robot_namespace:=/
-                       velodyne_enabled:=true
-                       velodyne_gpu:=false
                        " >
     <gazebo>
       <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" >
@@ -65,20 +63,6 @@
                                            iyy="0.01055121" iyz="0.00071657"
                                                             izz="0.00237852"
     />
-
-    <!-- Velodyne VLP-16 -->
-    <xacro:if value="${velodyne_enabled}" >
-      <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro" />
-      <xacro:VLP-16 parent="link1"
-                    name="velodyne"
-                    topic="velodyne_points"
-                    hz="10"
-                    samples="440"
-                    gpu="${velodyne_gpu}" >
-        <origin xyz="0 -0.13 0.1" rpy="0 0 0" />
-      </xacro:VLP-16>
-    </xacro:if>
-
 
     <xacro:make_joint name="joint2"
                       xyz="0.054 0 ${DYNAMIXEL_W / 2}"

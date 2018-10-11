@@ -1,15 +1,11 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="robot_namespace" default="/" />
-  <arg name="velodyne_enabled" default="true" />
-  <arg name="velodyne_gpu" default="false" />
 
   <arg name="world_name" default="words/empty.world" />
 
   <include file="$(find erista_gazebo)/launch/spawn_erista.launch" >
     <arg name="robot_namespace" value="$(arg robot_namespace)" />
-    <arg name="velodyne_enabled" value="$(arg velodyne_enabled)" />
-    <arg name="velodyne_gpu" value="$(arg velodyne_gpu)" />
   </include>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch" >

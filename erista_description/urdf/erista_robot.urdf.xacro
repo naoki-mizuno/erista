@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="erista" >
   <xacro:arg name="robot_namespace" default="/" />
-  <xacro:arg name="velodyne_enabled" default="true" />
-  <xacro:arg name="velodyne_gpu" default="false" />
 
   <xacro:include filename="$(find erista_description)/urdf/erista.urdf.xacro" />
 
@@ -16,8 +14,6 @@
 
   <xacro:erista
     robot_namespace="$(arg robot_namespace)"
-    velodyne_enabled="$(arg velodyne_enabled)"
-    velodyne_gpu="$(arg velodyne_gpu)"
     />
 
 

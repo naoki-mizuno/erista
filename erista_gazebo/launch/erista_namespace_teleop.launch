@@ -3,17 +3,12 @@
   <arg name="robot_namespace" default="erista" />
   <arg name="erista_prefix" default="erista/" />
 
-  <arg name="velodyne_enabled" default="true" />
-  <arg name="velodyne_gpu" default="false" />
-
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joypad_type" default="$(optenv ERISTA_JOYPAD_TYPE ps4_wired)" />
 
   <!-- Spawn Gazebo world and erista model, plus controllers -->
   <include file="$(find erista_gazebo)/launch/erista_empty_world.launch" >
     <arg name="robot_namespace" value="$(arg robot_namespace)" />
-    <arg name="velodyne_enabled" default="$(arg velodyne_enabled)" />
-    <arg name="velodyne_gpu" default="$(arg velodyne_gpu)" />
   </include>
 
   <!-- Launch nodes required for teleop -->

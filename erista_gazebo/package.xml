@@ -16,7 +16,6 @@
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>gazebo_ros_control</exec_depend>
   <exec_depend>gazebo_plugins</exec_depend>
-  <exec_depend>velodyne_description</exec_depend>
   <exec_depend>erista_bringup</exec_depend>
   <exec_depend>erista_description</exec_depend>
 
