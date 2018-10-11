@@ -9,8 +9,8 @@
 
   <xacro:property name="joint3_min" value="${-M_PI / 2}" />
   <xacro:property name="joint3_max" value="2.86" />
-  <xacro:property name="joint4_min" value="${-M_PI / 4}" />
-  <xacro:property name="joint4_max" value="${M_PI / 4}" />
+  <xacro:property name="joint4_min" value="${-M_PI / 2}" />
+  <xacro:property name="joint4_max" value="${M_PI / 2}" />
   <xacro:property name="joint5_min" value="${-M_PI / 2}" />
   <xacro:property name="joint5_max" value="${M_PI / 2}" />
 
