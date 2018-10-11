@@ -2,8 +2,6 @@
   <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
   <arg name="load_robot_description" default="false"/>
 
-  <arg name="velodyne_enabled" default="$(optenv ERISTA_VELODYNE_ENABLED true)"/>
-
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
 
@@ -11,8 +9,6 @@
   <group if="$(arg load_robot_description)" >
     <include file="$(find erista_description)/launch/description.launch" >
       <arg name="robot_description" value="$(arg robot_description)" />
-      <arg name="velodyne_enabled" value="$(arg velodyne_enabled)" />
-      <!-- Note: robot_namespace, velodyne_gpu are unneeded by MoveIt! -->
     </include>
   </group>
 

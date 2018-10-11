@@ -80,8 +80,6 @@
     <disable_collisions link1="base_link" link2="link3" reason="Never" />
     <disable_collisions link1="base_link" link2="link4" reason="Never" />
     <disable_collisions link1="base_link" link2="link5" reason="Never" />
-    <disable_collisions link1="base_link" link2="velodyne" reason="Never" />
-    <disable_collisions link1="base_link" link2="velodyne_base_link" reason="Never" />
     <disable_collisions link1="dummy" link2="hand_camera" reason="Never" />
     <disable_collisions link1="dummy" link2="link3" reason="Never" />
     <disable_collisions link1="dummy" link2="link4" reason="Never" />
@@ -94,21 +92,12 @@
     <disable_collisions link1="link1" link2="link2" reason="Adjacent" />
     <disable_collisions link1="link1" link2="link3" reason="Never" />
     <disable_collisions link1="link1" link2="link4" reason="Never" />
-    <disable_collisions link1="link1" link2="velodyne" reason="Never" />
-    <disable_collisions link1="link1" link2="velodyne_base_link" reason="Adjacent" />
     <disable_collisions link1="link2" link2="link3" reason="Adjacent" />
     <disable_collisions link1="link2" link2="link4" reason="Never" />
-    <disable_collisions link1="link2" link2="velodyne" reason="Never" />
-    <disable_collisions link1="link2" link2="velodyne_base_link" reason="Never" />
     <disable_collisions link1="link3" link2="link4" reason="Adjacent" />
     <disable_collisions link1="link3" link2="link5" reason="Never" />
     <disable_collisions link1="link3" link2="link6" reason="Never" />
-    <disable_collisions link1="link3" link2="velodyne" reason="Never" />
-    <disable_collisions link1="link3" link2="velodyne_base_link" reason="Never" />
     <disable_collisions link1="link4" link2="link5" reason="Adjacent" />
     <disable_collisions link1="link4" link2="link6" reason="Never" />
-    <disable_collisions link1="link4" link2="velodyne" reason="Never" />
-    <disable_collisions link1="link4" link2="velodyne_base_link" reason="Never" />
     <disable_collisions link1="link5" link2="link6" reason="Adjacent" />
-    <disable_collisions link1="velodyne" link2="velodyne_base_link" reason="Adjacent" />
 </robot>
