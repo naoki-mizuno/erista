@@ -12,9 +12,6 @@
     <child link="base_link" />
   </joint>
 
-  <xacro:erista
-    robot_namespace="$(arg robot_namespace)"
-    />
-
+  <xacro:erista robot_namespace="$(arg robot_namespace)" />
 
 </robot>
