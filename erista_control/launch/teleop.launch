@@ -21,7 +21,7 @@
 
     <!-- TwistStamped to JointTrajectory -->
     <node pkg="twist_jogger" type="twist_jogger_node" name="twist_jogger" output="screen" >
-      <!-- Uses robot_namespace for the TF prefix -->
+      <!-- Uses erista_prefix for the TF prefix -->
       <rosparam file="$(find erista_control)/config/twist_jogger.yaml" subst_value="true" />
     </node>
 
