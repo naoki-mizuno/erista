@@ -6,10 +6,10 @@ move_group:
   action_namespace: /$(arg erista_prefix)
 
 presets:
-  arm_twist:
+  twist_6dof:
     trigger: always
     action:
-      - type: arm_twist
+      - type: twist_6dof
         frame_id: $(arg erista_prefix)hand_camera
         out_topic: $(arg erista_prefix)cmd_delta
         # Don't publish twist if no change is commanded
