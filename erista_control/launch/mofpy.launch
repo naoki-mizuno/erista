@@ -10,6 +10,7 @@
     <rosparam file="$(find erista_control)/config/mofpy/common.yaml" />
     <!-- Uses arg: erista_prefix -->
     <rosparam file="$(find erista_control)/config/mofpy/presets/arm.yaml" subst_value="true" />
+    <rosparam file="$(find erista_control)/config/mofpy/presets/arm_fk.yaml" subst_value="true" />
     <rosparam file="$(find erista_control)/config/mofpy/joypad/$(arg joypad_type).yaml" />
   </node>
 

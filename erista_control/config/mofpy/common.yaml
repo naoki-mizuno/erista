@@ -2,3 +2,18 @@ rate: 50
 timeout:
   press: 0.1
   sequence: 0.2
+
+presets:
+  switch_state_to_arm:
+    trigger: [SH, SH]
+    action:
+      - type: shared_values
+        initial: 0
+        key: state
+        value: 'arm'
+  switch_state_to_arm_fk:
+    trigger: [OP, OP]
+    action:
+      - type: shared_values
+        key: state
+        value: 'arm-fk'
